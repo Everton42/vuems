@@ -1,6 +1,11 @@
 <template lang="html">
   <div id="films"> 
-    <h1>Films here!</h1>
+    <h2>Top Rated Tv Series</h2>
+    <ul>
+      <li v-for="film in films">
+        {{film.original_name}}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -10,7 +15,9 @@ import axios from 'axios'
 export default {
   name: 'Films',
   data(){
-    films: []
+    return {
+      films: []
+    }
   },
   mounted() {
     this.getFilms()
@@ -19,10 +26,13 @@ export default {
 
     getFilms: function() {
       
-      let url = `https://api.themoviedb.org/3/movie/550?api_key=${secret_key}`
+      let url = `https://api.themoviedb.org/3/tv/top_rated?api_key=${secret_key}&language=en-US&page=1`
       axios.get(url)
       .then((result) => {
-          console.log(result)
+        // console.log(result.data.results)
+        result.data.results.forEach(film => {
+          this.films.push(film)
+        });
       }).catch((err) => {
         console.log(err)
       })    
