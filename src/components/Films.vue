@@ -3,7 +3,7 @@
     <h2>Top Rated Tv Series</h2>
     <ul>
       <li v-for="film in films">
-        {{film.original_name}}
+        <router-link :to="{ name : 'film', params: { id: film.id }}">{{ film.name }}</router-link>
       </li>
     </ul>
   </div>
@@ -12,8 +12,10 @@
 <script>
 import { secret_key } from '../theMovieDb'
 import axios from 'axios'
+
 export default {
   name: 'Films',
+
   data(){
     return {
       films: []
