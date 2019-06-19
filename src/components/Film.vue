@@ -1,42 +1,33 @@
 <template>
-<div id="film">
+  <div id="film">
     <h3>{{ film[0] }}</h3>
     <p>{{ film[1] }}</p>
-</div>
+  </div>
 </template>
 
 <script>
-
-import { secret_key } from '../theMovieDb'
-import axios from 'axios'
+import { secret_key } from "../theMovieDb";
+import axios from "axios";
+import { mapActions, mapState } from "vuex";
 
 export default {
-  name: 'Film',
-  data () {
-      return {
-          film : []
-      }
+  name: "Film",
+  mounted () {
+    this.getFilm(this.filmId)
   },
-  mounted() {
-      this.getFilm()
+  data() {
+    return {
+      filmId: this.$route.params.id
+    };
+  },
+  computed: {
+    ...mapState(["film"]),
   },
   methods: {
-
-    getFilm: function() {
-      var filmId = this.$route.params.id
-      let url = `https://api.themoviedb.org/3/tv/${filmId}?api_key=${secret_key}&language=en-US`
-      axios.get(url)
-      .then((result) => {
-            this.film.push(result.data.name)
-            this.film.push(result.data.overview)
-      }).catch((err) => {
-        console.log(err)
-      })    
-    }
+    ...mapActions(["getFilm"])
   }
-}
+};
 </script>
 
 <style>
-
 </style>
