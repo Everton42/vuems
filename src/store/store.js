@@ -6,21 +6,17 @@ import axios from 'axios'
 Vue.use(Vuex, axios)
 
 export default new Vuex.Store({
-  strict: true,
-  state: {
+
+  state: {  
     films: [],
-    film: []
-  },
-  getters: {
-    filmsCount: state => {
-      return state.films.length
-    }
+    film: [],
+
   },
   mutations: {
-    GET_FILMS(state) {
+    GET_POPULAR_FILMS(state) {
       state.films = []
-      let url = `https://api.themoviedb.org/3/tv/top_rated?api_key=${secret_key}&language=en-US&page=1`
-      axios.get(url)
+      let urlFilms = `https://api.themoviedb.org/3/movie/popular?api_key=${secret_key}&language=pt&page=1`
+      axios.get(urlFilms)
         .then((result) => {
           result.data.results.forEach(film => {
             state.films.push(film)
@@ -42,11 +38,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getFilms(context) {
-      context.commit('GET_FILMS')
+    getPopularFilms(context) {
+      context.commit('GET_POPULAR_FILMS')
     },
     getFilm(context, id) {
       context.commit('GET_FILM', id)
-    }
+    },
   }
 })

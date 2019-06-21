@@ -1,13 +1,29 @@
 <template lang="html">
-  <div> 
-    <h2>Top {{filmsCount}}  Rated Tv Series</h2>
-    <ul>
-      <li v-for="film in films">
-        <router-link :to="{ name : 'film', params: { id: film.id }}">{{ film.name }}</router-link>
-      </li>
-    </ul>
-  </div>
+  <v-container fill-height fluid >
+    <v-layout row wrap justify-space-around>
+      <v-flex xs4 align-end flexbox v-for="film in films">
+        <v-card >
+          <v-img
+            center
+            :src= "'https://image.tmdb.org/t/p/w500'+ film.poster_path"
+            width="50%"
+            max-height="auto"
+          ></v-img>
+
+          <v-card-title primary-title>
+              <h3 class="headline mb-0">{{ film.title }}</h3>
+          </v-card-title>
+
+          <v-card-actions>
+            <v-btn flat color="orange">Share</v-btn>
+            <v-btn flat color="orange">Explore</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
+
 
 <script>
 import { secret_key } from "../theMovieDb";
@@ -17,14 +33,13 @@ import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   name: "Films",
   mounted() {
-    this.getFilms()
+    this.getPopularFilms();
   },
   computed: {
-    ...mapState(["films"]),
-    ...mapGetters(["filmsCount"])
+    ...mapState(["films"])
   },
   methods: {
-    ...mapActions(['getFilms'])
+    ...mapActions(["getPopularFilms"])
   }
 };
 </script>
