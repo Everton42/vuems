@@ -9,19 +9,19 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/dashboard',
+      path: '/',
       name: 'dashboard',
       component: Dashboard
     },
     {
-      path: '/films',
-      name: 'films',
-      component: () => import('./components/Films.vue')
+      path: '/movies',
+      name: 'movies',
+      component: () => import('./components/Movies.vue')
     },
-    {
-      path: '/film/:id',
-      name: 'film',
-      component: () => import('./components/Film.vue')
-    }
+    // {
+    //   path: '/movie/:id',
+    //   name: 'movie',
+    //   component: () => import('./components/Movie.vue')
+    // }
   ]
 })

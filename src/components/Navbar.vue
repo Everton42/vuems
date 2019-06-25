@@ -2,8 +2,8 @@
   <nav>
     <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" fixed app>
       <v-list dense>
-        <template v-for="item in items">
-          <v-list-tile :key="item.path" router :to="item.path">
+        <template  v-for="item in menusItems">
+          <v-list-tile  :key="item.path" router :to="item.path">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -35,12 +35,7 @@
         label="Pesquisar filmes e séries"
         class="hidden-sm-and-down"
       ></v-text-field>
-
       <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>notifications</v-icon>
-      </v-btn>
       <v-btn icon large>
         <v-avatar size="40px">
           <img src="https://krourke.org/img/md_avatar_stormtrooper.svg" alt="avatar">
@@ -50,13 +45,20 @@
   </nav>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
     data: () => ({
     drawer: null,
-    items: [
-      { icon: "dashboard", text: "Dashboard", path: "dashboard" },
-      { icon: "local_movies", text: "Filmes", path: "films" },
-      { icon: "live_tv", text: "Séries", path: "series" }
+    computed: {
+    ...mapState(["movies","listTitle"])
+    },
+    menusItems: [
+      { icon: "dashboard", text: "Dashboard", path: "/" },
+      { icon: "local_movies", text: "Filmes Populares", path: "populares" },
+      { icon: "local_movies", text: "Filmes Mais Votados", path: "maisVotados" },
+      { icon: "local_movies", text: "Em Estreia", path: "emEstreia" },
+      { icon: "local_movies", text: "Filmes", path: "filmes" },
+      { icon: "local_movies", text: "Filmes", path: "series" }
     ]
   })
 }

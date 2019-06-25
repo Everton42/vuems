@@ -1,19 +1,17 @@
 <template>
   <div class="dashboard">
     <h1 class="subheading grey--text"> Dashboard </h1>
-  <v-container fluid>
-    <Films/>
-  </v-container>
+    <Movies/>
   </div>
 </template>
 
 <script>
-import Films from '@/components/Films.vue'
+import Movies from '@/components/Movies.vue'
 
 export default {
   name: 'dashboard',
   components: {
-    Films
+    Movies
   }
 }
 </script>
