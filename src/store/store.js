@@ -37,9 +37,9 @@ export default new Vuex.Store({
     ]
   },
   mutations: {
-    POPULAR_MOVIES(state) {
+    POPULAR_MOVIES(state, page) {
       state.movies = []
-      let urlmovies = `https://api.themoviedb.org/3/movie/popular?api_key=${secret_key}&language=pt&page=1`
+      let urlmovies = `https://api.themoviedb.org/3/movie/popular?api_key=${secret_key}&language=pt&page=${page}`
       axios.get(urlmovies)
         .then((result) => {
           result.data.results.forEach(movies => {
@@ -62,8 +62,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getPopularMovies(context) {
-      context.commit('POPULAR_MOVIES')
+    getPopularMovies(context, page) {
+      context.commit('POPULAR_MOVIES', page)
     },
     getMovie(context, id) {
       context.commit('MOVIE', id)

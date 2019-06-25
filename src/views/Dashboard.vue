@@ -1,6 +1,5 @@
 <template>
   <div class="white">
-    <h1 class="subheading grey--text"> Dashboard </h1>
     <PopularMovies/>
   </div>
 </template>

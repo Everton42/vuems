@@ -1,7 +1,7 @@
 <template lang="html">
   <v-container fluid grid-list-sm >
-    <h2 class="font-weight-light">{{listTitle[0].title}}</h2>
-    <v-layout row wrap justify->
+    <h2 class="font-weight-light text-uppercase">{{listTitle[0].title}}</h2>
+    <v-layout mt-3 row wrap justify->
       <v-flex xs6 sm3 lg2 xl1 v-for="movie in movies" d-flex child-flex>
         <v-hover>
           <v-card flat class="white--text" slot-scope="{ hover }">
@@ -66,9 +66,10 @@ export default {
     onboarding: 0,
     loading: false,
     loader: null,
+    page: 1
   }),
   mounted() {
-    this.getPopularMovies();
+    this.getPopularMovies(this.page);
   },
   computed: {
     ...mapState(["movies","listTitle"])
@@ -88,9 +89,8 @@ export default {
       loader () {
         const l = this.loader
         this[l] = !this[l]
-
         setTimeout(() => (this[l] = false), 3000)
-
+        this.getPopularMovies(this.page++)
         this.loader = null
       }
     }
