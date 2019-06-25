@@ -1,17 +1,17 @@
 <template>
-  <div class="dashboard">
+  <div class="white">
     <h1 class="subheading grey--text"> Dashboard </h1>
-    <Movies/>
+    <PopularMovies/>
   </div>
 </template>
 
 <script>
-import Movies from '@/components/Movies.vue'
+import PopularMovies from '@/components/PopularMovies.vue'
 
 export default {
   name: 'dashboard',
   components: {
-    Movies
+    PopularMovies
   }
 }
 </script>

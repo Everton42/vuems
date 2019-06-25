@@ -14,9 +14,9 @@ export default new Router({
       component: Dashboard
     },
     {
-      path: '/movies',
-      name: 'movies',
-      component: () => import('./components/Movies.vue')
+      path: '/populares',
+      name: 'popularMovies',
+      component: () => import('./components/PopularMovies.vue')
     },
     // {
     //   path: '/movie/:id',
