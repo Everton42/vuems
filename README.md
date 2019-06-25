@@ -1,5 +1,5 @@
-# films-api
-
+# Vuems
+Catálogo de filmes e séries com dados da API [The Movie Database](https://www.themoviedb.org/)
 ## Project setup
 ```
 npm install
@@ -9,21 +9,3 @@ npm install
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
