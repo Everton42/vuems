@@ -24,7 +24,7 @@
     >
       <v-toolbar-title style="width: 15em" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span class="hidden-sm-and-down font-weight-light white--text title">Vuems<v-icon class="grey--text">local_movies</v-icon></span>
+        <span class="hidden-sm-and-down font-weight-light white--text title">{{title}}<v-icon class="grey--text">local_movies</v-icon></span>
       </v-toolbar-title>
 
       <v-text-field
@@ -52,6 +52,7 @@ export default {
     computed: {
     ...mapState(["movies","listTitle"])
     },
+    title: 'Vuems',
     menusItems: [
       { icon: "dashboard", text: "Dashboard", path: "/" },
       { icon: "local_movies", text: "Filmes Populares", path: "populares" },

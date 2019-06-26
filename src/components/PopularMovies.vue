@@ -2,11 +2,12 @@
   <v-container fluid grid-list-sm >
     <h2 class="font-weight-light text-uppercase">{{listTitle[0].title}}</h2>
     <v-layout mt-3 row wrap justify->
-      <v-flex xs6 sm3 lg2 xl1 v-for="movie in movies" d-flex child-flex>
+      <v-flex xs6 sm3 lg2 xl1 v-for="movie in movies" :key="movie.id" d-flex child-flex>
         <v-hover>
           <v-card flat class="white--text" slot-scope="{ hover }">
             <v-layout column fill-height >
-              <v-flex xs12>
+              <v-flex xs12
+                @click="openDialog(movie.id)">
                 <v-img
                   :src="'https://image.tmdb.org/t/p/w500'+ movie.poster_path"
                   width="100%" height="18em"
@@ -52,6 +53,7 @@
         </v-btn>
       </v-flex>
     </v-layout>
+    <modalDetalhes :dialog="modal" @close-dialog="closeDialog"></modalDetalhes>
   </v-container>
 </template>
 
@@ -63,37 +65,36 @@ import { mapState, mapActions } from "vuex";
 export default {
   name: "popularMovies",
   data: () => ({
-    onboarding: 0,
     loading: false,
     loader: null,
-    page: 1
+    page: 1,
+    modal: false
   }),
   mounted() {
     this.getPopularMovies(this.page);
   },
   computed: {
-    ...mapState(["movies","listTitle"])
+    ...mapState(["movies", "listTitle", "movie"])
   },
   methods: {
-    ...mapActions(["getPopularMovies"]),
-    next() {
-      this.onboarding =
-        this.onboarding + 1 === this.films.length ? 0 : this.onboarding + 1;
+    ...mapActions(["getPopularMovies", "getMovie"]),
+    openDialog(id) {
+      this.modal = true
+      this.getMovie(id)
     },
-    prev() {
-      this.onboarding =
-        this.onboarding - 1 < 0 ? this.films.length - 1 : this.onboarding - 1;
+    closeDialog() {
+      this.modal = false
     }
   },
   watch: {
-      loader () {
-        const l = this.loader
-        this[l] = !this[l]
-        setTimeout(() => (this[l] = false), 3000)
-        this.getPopularMovies(this.page++)
-        this.loader = null
-      }
+    loader() {
+      const l = this.loader;
+      this[l] = !this[l];
+      setTimeout(() => (this[l] = false), 3000);
+      this.getPopularMovies(this.page++);
+      this.loader = null;
     }
+  }
 };
 </script>
 <style>
@@ -101,7 +102,7 @@ export default {
   align-items: center;
   bottom: 0;
   justify-content: center;
-  opacity: .5;
+  opacity: 0.5;
   position: absolute;
   width: 100%;
 }

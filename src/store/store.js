@@ -51,11 +51,11 @@ export default new Vuex.Store({
     },
     MOVIE: (state, id) => {
       state.movie = []
-      let url = `https://api.themoviedb.org/3/tv/${id}?api_key=${secret_key}&language=en-US`
+      let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${secret_key}&language=pt`
       axios.get(url)
         .then((result) => {
-          state.movie.push(result.data.name)
-          state.movie.push(result.data.overview)
+           debugger
+          state.movie.parse(result.data)
         }).catch((err) => {
           console.log(err)
         })
@@ -67,6 +67,6 @@ export default new Vuex.Store({
     },
     getMovie(context, id) {
       context.commit('MOVIE', id)
-    },
+    }
   }
 })
