@@ -9,7 +9,7 @@ export default new Vuex.Store({
 
   state: {  
     movies: [],
-    movie: [],
+    movie: {},
     series: [],
     serie: [],
     listTitle: [
@@ -36,10 +36,22 @@ export default new Vuex.Store({
       }
     ]
   },
+  getters: {
+    poster: state => {
+      if(state.movie.poster_path){
+        return 'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + state.movie.poster_path;
+      }
+    },
+    backdrop: state => {
+      if(state.movie.backdrop_path){
+        return 'https://image.tmdb.org/t/p/w500' + state.movie.backdrop_path;
+      }
+    },
+  },
   mutations: {
     POPULAR_MOVIES(state, page) {
       state.movies = []
-      let urlmovies = `https://api.themoviedb.org/3/movie/popular?api_key=${secret_key}&language=pt&page=${page}`
+      let urlmovies = `https://api.themoviedb.org/3/movie/popular?api_key=${secret_key}&language=en&page=${page}`
       axios.get(urlmovies)
         .then((result) => {
           result.data.results.forEach(movies => {
@@ -51,11 +63,10 @@ export default new Vuex.Store({
     },
     MOVIE: (state, id) => {
       state.movie = []
-      let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${secret_key}&language=pt`
+      let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${secret_key}&language=en`
       axios.get(url)
         .then((result) => {
-           debugger
-          state.movie.parse(result.data)
+          state.movie = result.data
         }).catch((err) => {
           console.log(err)
         })

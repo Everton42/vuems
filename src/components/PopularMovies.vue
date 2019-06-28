@@ -1,24 +1,24 @@
 <template lang="html">
-  <v-container fluid grid-list-sm >
+  <v-container fluid grid-list-sm>
     <h2 class="font-weight-light text-uppercase">{{listTitle[0].title}}</h2>
-    <v-layout mt-3 row wrap justify->
+    <v-layout mt-3 row wrap>
       <v-flex xs6 sm3 lg2 xl1 v-for="movie in movies" :key="movie.id" d-flex child-flex>
         <v-hover>
           <v-card flat class="white--text" slot-scope="{ hover }">
-            <v-layout column fill-height >
+            <v-layout column>
               <v-flex xs12
                 @click="openDialog(movie.id)">
                 <v-img
                   :src="'https://image.tmdb.org/t/p/w500'+ movie.poster_path"
-                  width="100%" height="18em"
                   :lazy-src="`https://picsum.photos/10/6?image=${movies.length * 5 + 10}`"
                   class="grey lighten-1"
+                  width="100%"
                 >
                 <v-expand-transition>
                   <div
                     v-if="hover"
                     class="d-flex transition-fast-in-fast-out grey darken-4 v-card--reveal display-3 white--text"
-                    style="height: 100%;"
+                    style="height: 100%; width: 100%"
                   >
                   {{movie.vote_average}}
                   </div>
@@ -53,14 +53,14 @@
         </v-btn>
       </v-flex>
     </v-layout>
-    <modalDetalhes :dialog="modal" @close-dialog="closeDialog"></modalDetalhes>
+    <modalDetails :dialog="modal" @close-dialog="closeDialog"></modalDetails>
   </v-container>
 </template>
 
 <script>
-import { secret_key } from "../theMovieDb";
-import axios from "axios";
-import { mapState, mapActions } from "vuex";
+import { secret_key } from "../theMovieDb"
+import axios from "axios"
+import { mapState, mapActions } from "vuex"
 
 export default {
   name: "popularMovies",
@@ -71,7 +71,7 @@ export default {
     modal: false
   }),
   mounted() {
-    this.getPopularMovies(this.page);
+    this.getPopularMovies(this.page)
   },
   computed: {
     ...mapState(["movies", "listTitle", "movie"])
@@ -88,14 +88,14 @@ export default {
   },
   watch: {
     loader() {
-      const l = this.loader;
-      this[l] = !this[l];
-      setTimeout(() => (this[l] = false), 3000);
-      this.getPopularMovies(this.page++);
-      this.loader = null;
+      const l = this.loader
+      this[l] = !this[l]
+      setTimeout(() => (this[l] = false), 3000)
+      this.getPopularMovies(this.page++)
+      this.loader = null
     }
   }
-};
+}
 </script>
 <style>
 .v-card--reveal {
