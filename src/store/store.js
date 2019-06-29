@@ -7,51 +7,97 @@ Vue.use(Vuex, axios)
 
 export default new Vuex.Store({
 
-  state: {  
+  state: {
     movies: [],
     movie: {},
-    series: [],
-    serie: [],
+    serchResults: {},
+    menuItems: [
+      {
+        icon: "dashboard",
+        title: 'Dashboard',
+        shortTitle: 'Dashboard',
+        path: '/'
+      },
+      {
+        icon: "local_movies",
+        title: 'Popular Movies',
+        shortTitle: 'Popular',
+        path: "popular"
+      }
+    ],
     listTitle: [
       {
-        title: 'Filmes Populares',
+        title: 'Dashboard',
+        shortTitle: 'Dashboard',
+      },
+      {
+        title: 'Popular Movies',
         shortTitle: 'Popular',
       },
       {
-        title: 'Filmes mais votados',
-        shortTitle: 'Mais Votados',
+        title: 'Top Rated Movie',
+        shortTitle: 'Top Rated',
       },
       {
-        title: 'Em Estreia',
-        shortTitle: 'Em Estreia',
+        title: 'Up Coming Movies',
+        shortTitle: 'Up Coming',
       },
       {
-        title: 'Filmes',
+        title: 'Movies',
       },
       {
-        title: 'Séries',
-      },
-      {
-        title: 'Resultado da Pesquisa',
+        title: 'Search Results',
       }
-    ]
+    ],
+    URL_BASE: 'https://api.themoviedb.org/3/movie/',
+    PARAMS_BASE: 'api_key='+secret_key+'&language=en-US'
   },
   getters: {
     poster: (state) => (path) => {
-      if(path){
+      if (path) {
         return 'https://image.tmdb.org/t/p/w370_and_h556_bestv2' + path;
       }
     },
     backdrop: state => {
-      if(state.movie.backdrop_path){
+      if (state.movie.backdrop_path) {
         return 'https://image.tmdb.org/t/p/w780' + state.movie.backdrop_path;
       }
     },
   },
   mutations: {
     POPULAR_MOVIES(state, page) {
-      state.movies = []
-      let urlmovies = `https://api.themoviedb.org/3/movie/popular?api_key=${secret_key}&language=en-US&page=${page}`
+      if (page === 1) {
+        state.movies = []
+      }
+      let urlmovies = `${state.URL_BASE}popular?${state.PARAMS_BASE}&page=${page}`
+      axios.get(urlmovies)
+        .then((result) => {
+          result.data.results.forEach(movies => {
+            state.movies.push(movies)
+          });
+        }).catch((err) => {
+          console.log(err)
+        })
+    },
+    TOP_RATED_MOVIES(state, page) {
+      if (page === 1) {
+        state.movies = []
+      }
+      let urlmovies = `${state.URL_BASE}toprated?${state.PARAMS_BASE}&page=${page}`
+      axios.get(urlmovies)
+        .then((result) => {
+          result.data.results.forEach(movies => {
+            state.movies.push(movies)
+          });
+        }).catch((err) => {
+          console.log(err)
+        })
+    },
+    UP_COMING_MOVIES(state, page) {
+      if (page === 1) {
+        state.movies = []
+      }
+      let urlmovies = `${state.URL_BASE}toprated?${state.PARAMS_BASE}&page=${page}`
       axios.get(urlmovies)
         .then((result) => {
           result.data.results.forEach(movies => {
@@ -63,21 +109,40 @@ export default new Vuex.Store({
     },
     MOVIE: (state, id) => {
       state.movie = []
-      let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${secret_key}&language=en-US`
+      let url = `${state.URL_BASE}${id}?${state.PARAMS_BASE}`
       axios.get(url)
         .then((result) => {
           state.movie = result.data
         }).catch((err) => {
           console.log(err)
         })
+    },
+    SEARCH: (state, query) => {
+      let searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${secret_key}&language=en-US&${query}=func&page=1&include_adult=false`
+      axios.get(searchUrl)
+        .then((result) => {
+          state.serchResults = result.data
+        }).catch((err) => {
+          console.log(err)
+        })
     }
+
   },
   actions: {
     getPopularMovies(context, page) {
       context.commit('POPULAR_MOVIES', page)
     },
+    getTopRatedMovies(context, page) {
+      context.commit('TOP_RATED_MOVIES', page)
+    },
+    getUpComingMovies(context, page) {
+      context.commit('UP_COMING_MOVIES', page)
+    },
     getMovie(context, id) {
       context.commit('MOVIE', id)
+    },
+    search(context, query) {
+      context.commit('SEARCH', query)
     }
   }
 })

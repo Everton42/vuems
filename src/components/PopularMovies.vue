@@ -1,6 +1,6 @@
 <template lang="html">
   <v-container fluid grid-list-sm>
-    <h2 class="font-weight-light text-uppercase">{{listTitle[0].title}}</h2>
+    <h2 class="font-weight-light text-uppercase">{{listTitle[1].title}}</h2>
     <v-layout mt-3 row wrap>
       <v-flex xs6 sm3 md2 v-for="movie in movies" :key="movie.id" d-flex child-flex>
         <v-hover>
@@ -71,14 +71,14 @@ export default {
     modal: false
   }),
   mounted() {
-    this.getPopularMovies(this.page)
+      this.getPopularMovies(this.page)
   },
   computed: {
     ...mapState(["movies", "listTitle", "movie"]),
     ...mapGetters(["poster"])
   },
   methods: {
-    ...mapActions(["getPopularMovies", "getMovie"]),
+    ...mapActions(["getPopularMovies", "getMovie", "getTopRatedMovies"]),
     openDialog(id) {
       this.modal = true
       this.getMovie(id)

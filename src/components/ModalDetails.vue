@@ -4,9 +4,10 @@
       <v-dialog
         v-model="dialog"
         max-width="50em"
-        persistent
         :fullscreen="$vuetify.breakpoint.xsOnly"
         dark
+        persistent
+        @keydown.esc="closeDialog"
       >
         <v-card>
           <v-layout xs12 column wrap>
