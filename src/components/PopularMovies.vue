@@ -2,17 +2,17 @@
   <v-container fluid grid-list-sm>
     <h2 class="font-weight-light text-uppercase">{{listTitle[0].title}}</h2>
     <v-layout mt-3 row wrap>
-      <v-flex xs6 sm3 lg2 xl1 v-for="movie in movies" :key="movie.id" d-flex child-flex>
+      <v-flex xs6 sm3 md2 v-for="movie in movies" :key="movie.id" d-flex child-flex>
         <v-hover>
           <v-card flat class="white--text" slot-scope="{ hover }">
             <v-layout column>
               <v-flex xs12
                 @click="openDialog(movie.id)">
                 <v-img
-                  :src="'https://image.tmdb.org/t/p/w500'+ movie.poster_path"
+                  :src="poster(movie.poster_path)"
                   :lazy-src="`https://picsum.photos/10/6?image=${movies.length * 5 + 10}`"
                   class="grey lighten-1"
-                  width="100%"
+                  contain
                 >
                 <v-expand-transition>
                   <div
@@ -60,7 +60,7 @@
 <script>
 import { secret_key } from "../theMovieDb"
 import axios from "axios"
-import { mapState, mapActions } from "vuex"
+import { mapState, mapActions, mapGetters} from "vuex"
 
 export default {
   name: "popularMovies",
@@ -74,7 +74,8 @@ export default {
     this.getPopularMovies(this.page)
   },
   computed: {
-    ...mapState(["movies", "listTitle", "movie"])
+    ...mapState(["movies", "listTitle", "movie"]),
+    ...mapGetters(["poster"])
   },
   methods: {
     ...mapActions(["getPopularMovies", "getMovie"]),

@@ -37,21 +37,21 @@ export default new Vuex.Store({
     ]
   },
   getters: {
-    poster: state => {
-      if(state.movie.poster_path){
-        return 'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + state.movie.poster_path;
+    poster: (state) => (path) => {
+      if(path){
+        return 'https://image.tmdb.org/t/p/w370_and_h556_bestv2' + path;
       }
     },
     backdrop: state => {
       if(state.movie.backdrop_path){
-        return 'https://image.tmdb.org/t/p/w500' + state.movie.backdrop_path;
+        return 'https://image.tmdb.org/t/p/w780' + state.movie.backdrop_path;
       }
     },
   },
   mutations: {
     POPULAR_MOVIES(state, page) {
       state.movies = []
-      let urlmovies = `https://api.themoviedb.org/3/movie/popular?api_key=${secret_key}&language=en&page=${page}`
+      let urlmovies = `https://api.themoviedb.org/3/movie/popular?api_key=${secret_key}&language=en-US&page=${page}`
       axios.get(urlmovies)
         .then((result) => {
           result.data.results.forEach(movies => {
@@ -63,7 +63,7 @@ export default new Vuex.Store({
     },
     MOVIE: (state, id) => {
       state.movie = []
-      let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${secret_key}&language=en`
+      let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${secret_key}&language=en-US`
       axios.get(url)
         .then((result) => {
           state.movie = result.data
