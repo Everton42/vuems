@@ -8,45 +8,56 @@ Vue.use(Vuex, axios)
 export default new Vuex.Store({
 
   state: {
-    movies: [],
+    topRatedMovies: [],
+    popularMovies: [],
+    upComingMovies: [],
     movie: {},
     serchResults: {},
-    menuItems: [
+    modes: [
       {
-        icon: "dashboard",
-        title: 'Dashboard',
-        shortTitle: 'Dashboard',
-        path: '/'
-      },
-      {
-        icon: "local_movies",
-        title: 'Popular Movies',
-        shortTitle: 'Popular',
-        path: "popular"
-      }
-    ],
-    listTitle: [
-      {
-        title: 'Dashboard',
-        shortTitle: 'Dashboard',
-      },
-      {
+        type: 'popular',
         title: 'Popular Movies',
         shortTitle: 'Popular',
       },
       {
+        type: 'topRated',
         title: 'Top Rated Movie',
         shortTitle: 'Top Rated',
       },
       {
-        title: 'Up Coming Movies',
-        shortTitle: 'Up Coming',
-      },
-      {
-        title: 'Movies',
+        type: 'upComing',
+        title: 'Upcoming Movies',
+        shortTitle: 'Upcoming',
       },
       {
         title: 'Search Results',
+      }
+    ],
+    menuItems: [
+      {
+        icon: 'dashboard',
+        title: 'Dashboard',
+        shortTitle: 'Dashboard',
+        path: '/',
+        param: ''
+      },
+      {
+        icon: 'local_movies',
+        title: 'Popular Movies',
+        shortTitle: 'Popular',
+        path: 'moviesList/popular',
+      },
+      {
+        icon: 'local_movies',
+        title: 'Top Rated Movies',
+        shortTitle: 'Top Rated',
+        path: 'moviesList/topRated',
+      },
+      {
+        icon: 'local_movies',
+        title: 'Upcoming Movies',
+        shortTitle: 'Upcoming',
+        path: 'moviesList/upComing',
       }
     ],
     URL_BASE: 'https://api.themoviedb.org/3/movie/',
@@ -63,17 +74,23 @@ export default new Vuex.Store({
         return 'https://image.tmdb.org/t/p/w780' + state.movie.backdrop_path;
       }
     },
+    popularMovies: (state) => {
+      return state.popularMovies
+    },
+    topRatedMovies: (state) => {
+      return state.topRatedMovies
+    }
   },
   mutations: {
     POPULAR_MOVIES(state, page) {
       if (page === 1) {
-        state.movies = []
+        state.popularMovies = []
       }
       let urlmovies = `${state.URL_BASE}popular?${state.PARAMS_BASE}&page=${page}`
       axios.get(urlmovies)
         .then((result) => {
           result.data.results.forEach(movies => {
-            state.movies.push(movies)
+            state.popularMovies.push(movies)
           });
         }).catch((err) => {
           console.log(err)
@@ -81,23 +98,23 @@ export default new Vuex.Store({
     },
     TOP_RATED_MOVIES(state, page) {
       if (page === 1) {
-        state.movies = []
+        state.topRatedMovies = []
       }
-      let urlmovies = `${state.URL_BASE}toprated?${state.PARAMS_BASE}&page=${page}`
+      let urlmovies = `${state.URL_BASE}top_rated?${state.PARAMS_BASE}&page=${page}`
       axios.get(urlmovies)
         .then((result) => {
           result.data.results.forEach(movies => {
-            state.movies.push(movies)
+            state.topRatedMovies.push(movies)
           });
         }).catch((err) => {
           console.log(err)
         })
     },
-    UP_COMING_MOVIES(state, page) {
+    UPCOMING_MOVIES(state, page) {
       if (page === 1) {
         state.movies = []
       }
-      let urlmovies = `${state.URL_BASE}toprated?${state.PARAMS_BASE}&page=${page}`
+      let urlmovies = `${state.URL_BASE}upcoming?${state.PARAMS_BASE}&page=${page}`
       axios.get(urlmovies)
         .then((result) => {
           result.data.results.forEach(movies => {
@@ -136,7 +153,7 @@ export default new Vuex.Store({
       context.commit('TOP_RATED_MOVIES', page)
     },
     getUpComingMovies(context, page) {
-      context.commit('UP_COMING_MOVIES', page)
+      context.commit('UPCOMING_MOVIES', page)
     },
     getMovie(context, id) {
       context.commit('MOVIE', id)

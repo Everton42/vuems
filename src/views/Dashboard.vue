@@ -1,7 +1,8 @@
 <template>
   <v-container fluid>
     <div class="white">
-      <h2 class="font-weight-light text-uppercase">{{listTitle[0].title}}</h2>
+      <!-- <moviesList :mode='modes[0].type'></moviesList>
+      <moviesList :mode='modes[1].type'></moviesList> -->
     </div>
   </v-container>
 </template>
@@ -11,7 +12,7 @@ import { mapState } from "vuex";
 export default {
   name: "dashboard",
   computed: {
-    ...mapState(["listTitle"])
+    ...mapState(["modes"])
   }
 };
 </script>

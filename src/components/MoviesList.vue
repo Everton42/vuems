@@ -1,6 +1,6 @@
 <template lang="html">
   <v-container fluid grid-list-sm>
-    <h2 class="font-weight-light text-uppercase">{{listTitle[1].title}}</h2>
+    <h2 class="font-weight-light text-uppercase">{{mode.title}}</h2>
     <v-layout mt-3 row wrap>
       <v-flex xs6 sm3 md2 v-for="movie in movies" :key="movie.id" d-flex child-flex>
         <v-hover>
@@ -53,7 +53,7 @@
         </v-btn>
       </v-flex>
     </v-layout>
-    <modalDetails :dialog="modal" @close-dialog="closeDialog"></modalDetails>
+    <movieDetails :dialog="modal" @close-dialog="closeDialog"></movieDetails>
   </v-container>
 </template>
 
@@ -64,27 +64,50 @@ import { mapState, mapActions, mapGetters} from "vuex"
 
 export default {
   name: "popularMovies",
+  props: {
+    mode: String
+  },
   data: () => ({
     loading: false,
     loader: null,
     page: 1,
-    modal: false
+    modal: false,
+    movies: []
   }),
   mounted() {
-      this.getPopularMovies(this.page)
+    this.callAction(this.mode)
   },
   computed: {
-    ...mapState(["movies", "listTitle", "movie"]),
-    ...mapGetters(["poster"])
+    ...mapState(["topRatedMovies", "popularMovies", "movie", "modes"]),
+    ...mapGetters(["poster", "popularMovies", "topRatedMovies"])
   },
   methods: {
-    ...mapActions(["getPopularMovies", "getMovie", "getTopRatedMovies"]),
+    ...mapActions(["getPopularMovies", "getMovie", "getTopRatedMovies", "getUpComingMovies"]),
     openDialog(id) {
       this.modal = true
       this.getMovie(id)
     },
     closeDialog() {
       this.modal = false
+    },
+    callAction(mode) {
+    switch (mode) {
+      case this.modes[0].type:
+        this.mode = this.modes[0]
+        this.getPopularMovies(this.page)   
+        this.movies = this.popularMovies
+        break;
+      case this.modes[1].type:
+        this.mode = this.modes[1]
+        this.getTopRatedMovies(this.page)
+        this.movies = this.topRatedMovies
+      case this.modes[2].type:
+        this.mode = this.modes[2]
+        this.getUpComingMovies(this.page)
+        this.movies = this.upComingMovies
+      default:
+        break;
+    }
     }
   },
   watch: {
@@ -92,7 +115,8 @@ export default {
       const l = this.loader
       this[l] = !this[l]
       setTimeout(() => (this[l] = false), 3000)
-      this.getPopularMovies(this.page++)
+      this.page++
+      this.callAction(this.mode.type)
       this.loader = null
     }
   }

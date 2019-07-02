@@ -3,13 +3,13 @@ import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
 import store from './store/store'
-import ModalDetails from '@/components/ModalDetails.vue'
-import PopularMovies from '@/components/PopularMovies.vue'
+import MovieDetails from '@/components/MovieDetails.vue'
+import MoviesList from '@/components/MoviesList.vue'
 import moment from 'moment'
 
 Vue.config.productionTip = false
-Vue.component('modalDetails', ModalDetails)
-Vue.component('popularMovies', PopularMovies)
+Vue.component('movieDetails', MovieDetails)
+Vue.component('moviesList', MoviesList)
 
 Vue.filter('formatDate', function(value) {
 

@@ -11,12 +11,14 @@ export default new Router({
     {
       path: '/',
       name: 'dashboard',
-      component: Dashboard
+      component: Dashboard,
+      props: false
     },
     {
-      path: '/popular',
-      name: 'popularMovies',
-      component: () => import('./components/PopularMovies.vue')
+      path: '/moviesList/:mode',
+      name: 'moviesList',
+      props: true,
+      component: () => import('./components/MoviesList.vue')
     },
   ]
 })

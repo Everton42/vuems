@@ -3,7 +3,8 @@
     <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" fixed app>
       <v-list dense>
         <template v-for="item in menuItems">
-          <v-list-tile :key="item.path" router :to="item.path">
+          <!-- //TODO: corrigir rotas -->
+          <v-list-tile :key="item.name" router :to="{path: item.path}">
             <v-list-tile-action>
               <v-icon class="grey--text">{{ item.icon }}</v-icon>
             </v-list-tile-action>
