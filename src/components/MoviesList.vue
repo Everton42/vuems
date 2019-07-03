@@ -1,8 +1,8 @@
 <template lang="html">
-  <v-container fluid grid-list-sm>
+  <v-container fluid grid-list-lg>
     <h2 class="font-weight-light text-uppercase">{{mode.title}}</h2>
     <v-layout mt-3 row wrap>
-      <v-flex xs6 sm3 md2 v-for="movie in movies" :key="movie.id" d-flex child-flex>
+      <v-flex xs6 sm3 lg3 v-for="movie in movies" :key="movie.id" d-flex child-flex>
         <v-hover>
           <v-card flat class="white--text" slot-scope="{ hover }">
             <v-layout column>
@@ -65,7 +65,7 @@ import { mapState, mapActions, mapGetters} from "vuex"
 export default {
   name: "popularMovies",
   props: {
-    mode: String
+    mode: String,
   },
   data: () => ({
     loading: false,
@@ -78,11 +78,11 @@ export default {
     this.callAction(this.mode)
   },
   computed: {
-    ...mapState(["topRatedMovies", "popularMovies", "movie", "modes"]),
-    ...mapGetters(["poster", "popularMovies", "topRatedMovies"])
+    ...mapState(["movie", "modes"]),
+    ...mapGetters(["poster", "popularMovies", "topRatedMovies", "upcomingMovies", "searchResults"])
   },
   methods: {
-    ...mapActions(["getPopularMovies", "getMovie", "getTopRatedMovies", "getUpComingMovies"]),
+    ...mapActions(["getPopularMovies", "getMovie", "getTopRatedMovies", "getUpcomingMovies", "search"]),
     openDialog(id) {
       this.modal = true
       this.getMovie(id)
@@ -101,14 +101,22 @@ export default {
         this.mode = this.modes[1]
         this.getTopRatedMovies(this.page)
         this.movies = this.topRatedMovies
+        break;
       case this.modes[2].type:
         this.mode = this.modes[2]
-        this.getUpComingMovies(this.page)
-        this.movies = this.upComingMovies
+        this.getUpcomingMovies(this.page)
+        this.movies = this.upcomingMovies
+        break;
+      case this.modes[3].type:
+        this.mode = this.modes[3]
+        let text = this.$route.query.text
+        this.search(text)
+        this.movies = this.searchResults
+        break;
       default:
         break;
     }
-    }
+  }
   },
   watch: {
     loader() {
@@ -118,11 +126,17 @@ export default {
       this.page++
       this.callAction(this.mode.type)
       this.loader = null
-    }
+    },
+    '$route' (to, from) {
+      if(from.query.text && to.query.text){ 
+        this.$router.go()
+      }   
+      this.callAction(this.mode)
+    },
   }
 }
 </script>
-<style>
+<style scoped>
 .v-card--reveal {
   align-items: center;
   bottom: 0;

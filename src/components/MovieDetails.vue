@@ -2,6 +2,7 @@
   <v-container fluid>
     <v-layout xs12 lg12 row wrap justify-center>
       <v-dialog
+        overlay
         v-model="dialog"
         max-width="50em"
         :fullscreen="$vuetify.breakpoint.xsOnly"

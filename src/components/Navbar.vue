@@ -3,8 +3,7 @@
     <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" fixed app>
       <v-list dense>
         <template v-for="item in menuItems">
-          <!-- //TODO: corrigir rotas -->
-          <v-list-tile :key="item.name" router :to="{path: item.path}">
+          <v-list-tile :key="item.name" router :to="{name: item.name, params: { mode: item.param }}">
             <v-list-tile-action>
               <v-icon class="grey--text">{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -36,6 +35,8 @@
             single-line
             class="caption font-weight-thin grey--text text-truncate"
             label="Search for movies"
+            @input="textValue"
+            @keydown.enter="search()"
           ></v-text-field>
         </v-flex>
       </v-toolbar>
@@ -47,10 +48,19 @@ import { mapState } from "vuex";
 export default {
   data: () => ({
     drawer: null,
-    title: "Vuems"
+    title: "Vuems",
+    text: ''
   }),
   computed: {
     ...mapState([ "menuItems"])
   },
+  methods: {
+    search (){
+      this.$router.push({name:'moviesList', params: { mode: 'search'}, query: { text: this.text}})
+    },
+    textValue(value){
+      this.text = value
+    }
+  }
 };
 </script>
