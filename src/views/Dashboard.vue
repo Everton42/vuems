@@ -1,9 +1,16 @@
 <template>
-  <v-container fluid>
-    <div class="white">
-      <!-- <moviesList :mode='modes[0].type'></moviesList>
-      <moviesList :mode='modes[1].type'></moviesList> -->
-    </div>
+  <v-container fluid pa-0>
+      <v-layout xs12>
+        <v-flex xs12>
+          <v-img
+                :src="images.dashboard"
+                :lazy-src="`https://picsum.photos/10/6?image=${5 + 10}`"
+                contain
+                width="100%"
+              >
+              </v-img>
+          </v-flex>
+        </v-layout>
   </v-container>
 </template>
 
@@ -13,6 +20,13 @@ export default {
   name: "dashboard",
   computed: {
     ...mapState(["modes"])
+  },
+  data() {
+    return {
+        images: {
+            dashboard: require('../assets/Vuems.png')
+        }
+    }
   }
 };
 </script>

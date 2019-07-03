@@ -36,7 +36,7 @@
       </v-flex>
     </v-layout>
     <v-layout xs12> 
-      <v-flex text-xs-center>
+      <v-flex text-xs-center v-if="mode.type !== 'search'">
         <v-btn
           depressed 
           :loading="loading"
