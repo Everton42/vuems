@@ -12,6 +12,8 @@ npm run serve
 ###
 
 Coloque sua chave no arquivo theMovieDb.js para ter acesso a [API](https://www.themoviedb.org/).
-    src/theMovieDb.js
+
+    path: src/theMovieDb.js
+    
 ![Screenshot](popular.PNG)
 ![Screenshot2](moviedatails.PNG)
