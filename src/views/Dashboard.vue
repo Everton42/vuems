@@ -17,13 +17,13 @@
               <div class="headline font-weight-thin text-xs-center grey--text">Made With</div>
               <v-layout xs12 align-center justify-center row  fill-height>
                 <v-flex xs6>
-                  <v-img :src="images.vue" contain height="4em"></v-img>
+                  <v-img :src="images.vue" contain></v-img>
                 </v-flex>
                 <v-flex xs6>
                   <div class="headline font-weight-light text-xs-center grey--text">+</div>
                 </v-flex>
                 <v-flex xs6>
-                  <v-img :src="images.vuetify" contain height="4em"></v-img>
+                  <v-img :src="images.vuetify" contain></v-img>
                 </v-flex>
               </v-layout>
             </v-flex>

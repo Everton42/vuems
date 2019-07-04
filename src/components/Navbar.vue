@@ -5,7 +5,7 @@
         <template v-for="item in menuItems">
           <v-list-tile :key="item.name" router :to="{name: item.name, params: { mode: item.param }}">
             <v-list-tile-action>
-              <v-icon class="grey--text">{{ item.icon }}</v-icon>
+              <v-icon class="grey--text" x-medium >{{ item.icon }}</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="font-weight-light subheading">{{ item.title }}</v-list-tile-title>
@@ -18,18 +18,18 @@
     <v-layout xs12 row fill-height align-content-center>
       <v-toolbar
         :clipped-left="$vuetify.breakpoint.lgAndUp"
-        color="black-ligthen darken"
         dark
+        class="secundary"
         app
         fixed
       >
-        <v-flex xs6 sm2>
+        <v-flex xs4 sm2>
           <v-toolbar-title>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <span class="font-weight-light white--text title">{{title}}</span>
           </v-toolbar-title>
         </v-flex>
-        <v-flex xs6 md4 lg5>
+        <v-spacer></v-spacer>
+        <v-flex xs8 md4 lg5>
           <v-text-field
             prepend-icon="search"
             single-line

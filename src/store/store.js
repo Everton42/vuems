@@ -33,28 +33,28 @@ export default new Vuex.Store({
     ],
     menuItems: [
       {
-        icon: 'dashboard',
+        icon: 'mdi-view-dashboard',
         title: 'Dashboard',
         shortTitle: 'Dashboard',
         name: 'dashboard',
         param: ''
       },
       {
-        icon: 'local_movies',
+        icon: 'mdi-movie-roll',
         title: 'Popular Movies',
         shortTitle: 'Popular',
         name: 'moviesList',
         param: 'popular',
       },
       {
-        icon: 'local_movies',
+        icon: 'mdi-star',
         title: 'Top Rated Movies',
         shortTitle: 'Top Rated',
         name: 'moviesList',
         param: 'topRated',
       },
       {
-        icon: 'local_movies',
+        icon: 'mdi-calendar',
         name: 'moviesList',
         title: 'Upcoming Movies',
         shortTitle: 'Upcoming',

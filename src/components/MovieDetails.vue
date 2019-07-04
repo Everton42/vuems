@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-layout xs12 lg12 row wrap justify-center>
+    <v-layout  xs12 lg12 row wrap justify-center>
       <v-dialog
         overlay
         v-model="dialog"
@@ -27,7 +27,7 @@
                   </v-btn>
                 </v-flex>
                 <v-flex xs12 center align-self-center>
-                  <h1 class="font-weight-regular headline white--text">{{movie.title}}</h1>
+                  <h1 class="font-weight-regular display-1 white--text">{{movie.title}}</h1>
                   <h3 class="font-weight-thin body-2 white--text">{{movie.tagline}}</h3>
                 </v-flex>
               </v-layout>
@@ -54,7 +54,7 @@
               <div class="font-weight-thin white--text">{{movie.overview}}</div>
             </v-flex>
             <v-flex xs12 mt-2 mb-2>
-              <h3 class="font-weight-regular text-uppercase">Genres</h3>
+              <h3 class="font-weight-regular text-uppercase teal--text">Genres</h3>
               <div
                 class="font-weight-thin"
                 v-for="genre in movie.genres"
@@ -62,7 +62,7 @@
               >{{genre.name}}</div>
             </v-flex>
             <v-flex xs12 mt-2 mb-2>
-              <h3 class="font-weight-regular text-uppercase">Release Date</h3>
+              <h3 class="font-weight-regular text-uppercase teal--text">Release Date</h3>
               <div class="font-weight-thin">{{movie.release_date | formatDate}}</div>
             </v-flex>
           </v-layout>
