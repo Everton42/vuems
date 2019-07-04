@@ -29,7 +29,7 @@
             <span class="font-weight-light white--text title">{{title}}</span>
           </v-toolbar-title>
         </v-flex>
-        <v-flex xs6 md3>
+        <v-flex xs6 md4 lg5>
           <v-text-field
             prepend-icon="search"
             single-line
