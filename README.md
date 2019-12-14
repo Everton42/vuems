@@ -1,5 +1,5 @@
 # Vuems
-Catálogo de filmes com dados da API [The Movie Database](https://www.themoviedb.org/)
+Catálogo de filmes com dados da API [The Movie Database](https://www.themoviedb.org/)   
 Veja a aplicação: https://everton42.github.io/Vuems/
 ## Project setup
 ```
