@@ -34,9 +34,9 @@ export default new Vuex.Store({
     menuItems: [
       {
         icon: 'mdi-view-dashboard',
-        title: 'Dashboard',
-        shortTitle: 'Dashboard',
-        name: 'dashboard',
+        title: 'Home',
+        shortTitle: 'Home',
+        name: 'home',
         param: ''
       },
       {

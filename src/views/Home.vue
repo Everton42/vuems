@@ -3,7 +3,7 @@
     <v-layout xs12  fill-height>
       <v-flex xs12 align-self-center>
         <v-img
-          :src="images.dashboard"
+          :src="images.home"
           :lazy-src="`https://picsum.photos/10/6?image=${5 + 10}`"
           gradient="to right top, rgba(4, 4, 5, 0.7), rgba(10, 104, 31, 0.76)"
           max-height="430px"
@@ -37,14 +37,14 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  name: "dashboard",
+  name: "home",
   computed: {
     ...mapState(["modes"])
   },
   data() {
     return {
       images: {
-        dashboard: require("../assets/dashboard.jpg"),
+        home: require("../assets/home.jpg"),
         vue: require("../assets/logo.png"),
         vuetify: require("../assets/vuetify.png")
       }
