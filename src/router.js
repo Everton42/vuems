@@ -9,6 +9,10 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '*',
+      redirect: '/home',
+    },
+    {
       path: '/home',
       name: 'home',
       component: Home,
@@ -19,6 +23,6 @@ export default new Router({
       name: 'moviesList',
       props: true,
       component: () => import('./components/MoviesList.vue')
-    },
+    }
   ]
 })
