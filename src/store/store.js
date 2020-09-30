@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { secret_key } from '../theMovieDb'
 import axios from 'axios'
 
 Vue.use(Vuex, axios)
@@ -63,7 +62,7 @@ export default new Vuex.Store({
       }
     ],
     URL_BASE: 'https://api.themoviedb.org/3/movie/',
-    PARAMS_BASE: 'api_key=' + secret_key + '&language=en-US'
+    PARAMS_BASE: 'api_key=' + process.env.VUE_APP_API_KEY + '&language=en-US'
   },
   getters: {
     poster: (state) => (path) => {
@@ -144,7 +143,7 @@ export default new Vuex.Store({
     },
     SEARCH: (state, query) => {
       state.serchResults = []
-      let searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${secret_key}&language=en-US&query=${query}&page=1&include_adult=false`
+      let searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.VUE_APP_API_KEY }&language=en-US&query=${query}&page=1&include_adult=false`
       axios.get(searchUrl)
         .then((result) => {
           result.data.results.forEach(movies => {

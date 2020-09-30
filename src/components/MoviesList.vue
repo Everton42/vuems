@@ -58,7 +58,6 @@
 </template>
 
 <script>
-import { secret_key } from "../theMovieDb"
 import axios from "axios"
 import { mapState, mapActions, mapGetters} from "vuex"
 
