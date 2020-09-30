@@ -1,6 +1,6 @@
 # Vuems
 Catálogo de filmes com dados da API [The Movie Database](https://www.themoviedb.org/)   
-Veja a aplicação: https://everton42.github.io/Vuems/
+Veja a aplicação: https://vuems.vercel.app/
 ## Project setup
 ```
 npm install
@@ -8,13 +8,11 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run dev
 ```
 ###
 
-Coloque sua chave no arquivo theMovieDb.js para ter acesso a [API](https://www.themoviedb.org/).
-
-    path: src/theMovieDb.js
+Variável de ambiente utilizada VUE_APP_API_KEY para ter acesso a [API](https://www.themoviedb.org/).
     
 ![Screenshot](popular.PNG)
 ![Screenshot2](moviedatails.PNG)
